@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 echo "Welcome to Employee Wage Computation"
 
@@ -13,6 +13,7 @@ totalWorkingDays=0
 totalSalary=0
 days=0
 
+declare -A dailyWage
 function getWorkingHours(){
 	case $1 in
 		$IS_FULL_TIME )
@@ -32,10 +33,15 @@ do
 	((totalWorkingDays++))
 	random=$(($RANDOM%3))
 	getWorkingHours $random
-	dailyWage[((days++))]=$(($EMP_RATE_PER_HR*$empHrs))
+	dailyWageArr[((days))]=$(($EMP_RATE_PER_HR*$empHrs))
+	dailyWage["$days"]=$(($EMP_RATE_PER_HR*$empHrs))
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	((days++))
 done
 
 totalSalary=$(($totalEmpHrs*$EMP_RATE_PER_HR))
-echo "Daily wages of employee: ${dailyWage[@]}"
-echo "Employee total salary is:$totalSalary"
+echo "Daily wages : ${dailyWageArr[@]}"
+echo "Total salary: $totalSalary"
+
+echo "Days        : ${!dailyWage[@]}"
+echo "Daily wages : ${dailyWage[@]}"
