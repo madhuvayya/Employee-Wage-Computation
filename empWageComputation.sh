@@ -7,7 +7,6 @@ isFullTime=2
 empRatePerHr=20
 
 random=$(($RANDOM%3))
-
 if [ $isFullTime -eq $random ]
 then
 	empHrs=8
