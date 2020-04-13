@@ -2,11 +2,16 @@
 
 echo "Welcome to Employee Wage Computation"
 
-isPresent=$(($RANDOM%2))
+isPresent=1
+random=$(($RANDOM%2))
 
-if [ $isPresent -eq 1]
+if [ $isPresent -eq $random ]
 then
-	echo "Employee present"
+	empRatePerHr=20
+	empHrs=8
+	salary=$(($empHrs*$empRatePerHr))
+	echo "Employee salary: $salary"
 else
-	echo "Employee absent"
+	salary=0
+	echo "Employee salary: $salary"
 fi
