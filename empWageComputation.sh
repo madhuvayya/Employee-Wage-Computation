@@ -12,11 +12,8 @@ totalEmpHrs=0
 totalWorkingDays=0
 totalSalary=0
 
-while [ $totalEmpHrs -lt $MAX_HRS_IN_MONTH -a $totalWorkingDays -lt $NUM_WORKING_DAYS ]
-do
-	((totalWorkingDays++))
-	random=$(($RANDOM%3))
-	case $random in
+function getWorkingHours(){
+	case $1 in
 		$IS_FULL_TIME )
 			empHrs=8
 			;;
@@ -27,6 +24,13 @@ do
 			empHrs=0
 			;;
 	esac
+}
+
+while [ $totalEmpHrs -lt $MAX_HRS_IN_MONTH -a $totalWorkingDays -lt $NUM_WORKING_DAYS ]
+do
+	((totalWorkingDays++))
+	random=$(($RANDOM%3))
+	getWorkingHours $random
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
 done
 
